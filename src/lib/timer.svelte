@@ -17,6 +17,7 @@
     
     let currentState = State.idle;
     $: pomodoroTime = POMODORO_S;
+    $: shortBreakTime = SHORT_BREAK_S;
     $: console.log(`pomodoroTime ${pomodoroTime}`);
     let completedPomodoros = 0;
     let interval;
@@ -76,6 +77,14 @@
       setState(State.idle);
       pomodoroTime = POMODORO_S;
     }
+    let increaseTime = () => time += 0.5    
+    let decreaseTime= () => time -= 0.5
+    let increaseRecoveryTime = () => recoveryTime += 0.5
+    let decreaseRecoveryTime = () => recoveryTime -= 0.5
+    let increaseRuns = () => RUNS += 1
+    let decreaseRuns = () => RUNS -= 1
+
+
   </script>
   
   <style>
@@ -88,14 +97,35 @@
   </style>
   
   <section>
-    <input type=number bind:value={time} min=0>
-    <input type=number bind:value={recoveryTime} min=0>
-    <input type=number bind:value={RUNS} min=1>        
+    <div>
+      <button on:click="{decreaseTime}">➖</button>
+      <input type=number bind:value={time} min=0>
+      <button on:click="{increaseTime}">➕</button>
+    </div>
+    <div>
+      <button on:click="{decreaseRecoveryTime}">➖</button>
+      <input type=number bind:value={recoveryTime} min=0>
+      <button on:click="{increaseRecoveryTime}">➕</button>
+    </div>
+    <div>
+      <button on:click="{decreaseRuns}">➖</button>
+      <input type=number bind:value={RUNS} min=1>   
+      <button on:click="{increaseRuns}">➕</button>
+    </div>
     <time>
+      <p>Active Time</p>
       {formatTime(pomodoroTime)}
     </time>
+    <time>
+      <p>Recovery Time</p>
+      {formatTime(shortBreakTime)}
+    </time>
+    <p>No. of Runs:{RUNS}</p>
     <footer>
       <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle}>start</button>
       <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress}>cancel</button>
     </footer>
   </section>
+
+
+
