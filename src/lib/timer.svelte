@@ -83,8 +83,6 @@
     let decreaseRecoveryTime = () => recoveryTime -= 0.5
     let increaseRuns = () => RUNS += 1
     let decreaseRuns = () => RUNS -= 1
-
-
   </script>
   
   <style>
@@ -94,35 +92,38 @@
       font-weight: 300;
       margin-bottom: 0.2em;
     }
+    input {
+      width: 5rem;
+    }  
   </style>
   
   <section>
     <div>
-      <button on:click="{decreaseTime}">➖</button>
+      <button on:click="{decreaseTime}" disabled={time === 0}>➖</button>
       <input type=number bind:value={time} min=0>
       <button on:click="{increaseTime}">➕</button>
     </div>
     <div>
-      <button on:click="{decreaseRecoveryTime}">➖</button>
+      <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0}>➖</button>
       <input type=number bind:value={recoveryTime} min=0>
       <button on:click="{increaseRecoveryTime}">➕</button>
     </div>
     <div>
-      <button on:click="{decreaseRuns}">➖</button>
+      <button on:click="{decreaseRuns}" disabled={RUNS === 0}>➖</button>
       <input type=number bind:value={RUNS} min=1>   
       <button on:click="{increaseRuns}">➕</button>
     </div>
-    <time>
-      <p>Active Time</p>
+    <p>Active Time</p>
+    <time>      
       {formatTime(pomodoroTime)}
     </time>
-    <time>
-      <p>Recovery Time</p>
+    <p>Recovery Time</p>
+    <time>      
       {formatTime(shortBreakTime)}
     </time>
     <p>No. of Runs:{RUNS}</p>
     <footer>
-      <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle}>start</button>
+      <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
       <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress}>cancel</button>
     </footer>
   </section>
