@@ -5,7 +5,7 @@ let myAudio;
 let time = 1;
 let recoveryTime = 1;
 
-let completedPomodoros = 0;
+let completedtabatas = 0;
 let interval;
 let increaseTime = () => time += 0.5    
 let decreaseTime= () => time -= 0.5
@@ -23,7 +23,7 @@ let currentState = State.idle;
 $: exercise_time = minutesToSeconds(time);
 $: break_time = minutesToSeconds(recoveryTime);
 $: RUNS = 1;
-$: pomodoroTime = exercise_time;
+$: tabataTime = exercise_time;
 
 function formatTime(timeInSeconds) { 
   const minutes = secondsToMinutes(timeInSeconds);
@@ -31,63 +31,59 @@ function formatTime(timeInSeconds) {
   return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
 }
 
-function startPomodoro() {       
+function starttabata() {       
   setState(State.inProgress);
   interval = setInterval(() => {
-    if (pomodoroTime === 4) {
+    if (tabataTime === 4) {
           myAudio.play();
     }
-    if (pomodoroTime === 0) {
-          completePomodoro();
+    if (tabataTime === 0) {
+          completetabata();
     }
-        pomodoroTime -= 1;
+        tabataTime -= 1;
   },1000);
 }
 
-    function setState(newState){
-      clearInterval(interval)
-      currentState = newState;
-    }
+function setState(newState){
+  clearInterval(interval)
+  currentState = newState;
+}
 
-    function completePomodoro(){
-      completedPomodoros++;
-      if (completedPomodoros === RUNS) {
-        
-        completedPomodoros = 0;
-        pomodoroTime = exercise_time;
-        idle();
-        
-      } else {
-        
-        rest(break_time);
-      }
-    }
+function completetabata(){
+  completedtabatas++;
+  if (completedtabatas === RUNS) {        
+    completedtabatas = 0;
+    tabataTime = exercise_time;
+    idle();        
+  } else {        
+    rest(break_time);
+  }
+}
 
-    function rest(time){
-      setState(State.resting);
-      pomodoroTime = time;
-      interval = setInterval(() => {
-        if (pomodoroTime === 4) {
-          myAudio.play();
-        }
-        if (pomodoroTime === 0) {
-            console.log("start new tabata")
-            pomodoroTime = time;
-          startPomodoro();
-        }
-        pomodoroTime -= 1;
-      },1000);
+function rest(time){
+  setState(State.resting);
+  tabataTime = time;
+  interval = setInterval(() => {
+    if (tabataTime === 4) {
+      myAudio.play();
     }
+    if (tabataTime === 0) {
+      console.log("start new tabata")
+      tabataTime = time;
+        starttabata();
+    }
+    tabataTime -= 1;
+  },1000);
+}
 
-    function cancelPomodoro() {      
-      idle();
-    }
+function canceltabata() {      
+  idle();
+}
 
-    function idle(){
-      setState(State.idle);
-      pomodoroTime = exercise_time;
-    }
- 
+function idle(){
+  setState(State.idle);
+  tabataTime = exercise_time;
+}
 
 onMount(() => {
   myAudio = document.createElement("audio");      
@@ -96,7 +92,7 @@ onMount(() => {
 
 </script>
   
-  <style>
+<style>
     time {
       display: block;
       font-size: 5em;
@@ -124,9 +120,9 @@ onMount(() => {
     input[type=number] {
       -moz-appearance: textfield;
     }
-  </style>
+</style>
   
-  <section>
+<section>
     <div>
       <button on:click="{decreaseTime}" disabled={time === 0}>➖</button>
       <input type=number bind:value={time} min=0>
@@ -143,13 +139,10 @@ onMount(() => {
       <button on:click="{increaseRuns}">➕</button>
     </div>    
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
-      {formatTime(pomodoroTime)}
+      {formatTime(tabataTime)}
     </time>    
     <footer>
-      <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
-      <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>
+      <button class="primary" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
+      <button on:click={canceltabata} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>
     </footer>
-  </section>
-
-
-
+</section>
