@@ -1,4 +1,12 @@
 <script>
+import { onMount } from 'svelte';
+
+    onMount(() => {
+      myAudio = document.createElement("audio");      
+      myAudio.src = "countdown.wav";      
+    });
+
+    let myAudio;
     let time = 1;
     let recoveryTime = 1;
     
@@ -11,7 +19,6 @@
     $: SHORT_BREAK_S = minutesToSeconds(recoveryTime);
     $: RUNS = 1;
     $: console.log(`RUNS ${RUNS}`);
-    
     
     const LONG_BREAK_S = minutesToSeconds(5);
     
@@ -28,9 +35,12 @@
       return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
     }
 
-    function startPomodoro() { 
+    function startPomodoro() {       
       setState(State.inProgress);
       interval = setInterval(() => {
+        if (pomodoroTime === 4) {
+          myAudio.play();
+        }
         if (pomodoroTime === 0) {
           completePomodoro();
         }
@@ -44,15 +54,15 @@
     }
 
     function completePomodoro(){
-
       completedPomodoros++;
-
       if (completedPomodoros === RUNS) {
-        //rest(LONG_BREAK_S);
-        console.log("DONE MA DUDE")
+        
         completedPomodoros = 0;
+        pomodoroTime = POMODORO_S;
         idle();
+        
       } else {
+        
         rest(SHORT_BREAK_S);
       }
     }
@@ -62,6 +72,9 @@
       pomodoroTime = time;
 
       interval = setInterval(() => {
+        if (pomodoroTime === 4) {
+          myAudio.play();
+        }
         if (pomodoroTime === 0) {
             console.log("start new tabata")
             pomodoroTime = time;
@@ -70,9 +83,11 @@
         pomodoroTime -= 1;
       },1000);
     }
+
     function cancelPomodoro() {      
       idle();
     }
+    
     function idle(){
       setState(State.idle);
       pomodoroTime = POMODORO_S;
@@ -91,6 +106,12 @@
       font-size: 5em;
       font-weight: 300;
       margin-bottom: 0.2em;
+    }
+    .active {
+      color: green;
+    }
+    .resting {
+      color: orange;
     }
     input {
       width: 5rem;
@@ -114,14 +135,10 @@
       <button on:click="{increaseRuns}">➕</button>
     </div>
     <p>Active Time</p>
-    <time>      
+    <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
       {formatTime(pomodoroTime)}
     </time>
-    <p>Recovery Time</p>
-    <time>      
-      {formatTime(shortBreakTime)}
-    </time>
-    <p>No. of Runs:{RUNS}</p>
+    
     <footer>
       <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
       <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress}>cancel</button>
