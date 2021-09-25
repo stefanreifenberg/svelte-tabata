@@ -121,7 +121,6 @@ onMount(() => {
       -moz-appearance: textfield;
     }
 </style>
-  
 <section>
     <div>
       <p>Activity Time (Minutes)</p>
@@ -148,4 +147,10 @@ onMount(() => {
       <button class="primary" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
       <button on:click={canceltabata} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>
     </footer>
+    <div>
+      <a href="https://www.buymeacoffee.com/reifenberg"
+       target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+        alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"
+      ></a>
+    </div>
 </section>
