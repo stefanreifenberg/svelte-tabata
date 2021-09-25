@@ -1,52 +1,48 @@
 <script>
 import { onMount } from 'svelte';
 
-    onMount(() => {
-      myAudio = document.createElement("audio");      
-      myAudio.src = "countdown.wav";      
-    });
+let myAudio;
+let time = 1;
+let recoveryTime = 1;
 
-    let myAudio;
-    let time = 1;
-    let recoveryTime = 1;
-    
-    const minutesToSeconds = (minutes) => minutes * 60;
-    const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
-    const padWithZeroes = (number) => number.toString().padStart(2, '0');
-    const State = {idle: 'idle', inProgress: 'in progress', resting: 'resting'};
+let completedPomodoros = 0;
+let interval;
+let increaseTime = () => time += 0.5    
+let decreaseTime= () => time -= 0.5
+let increaseRecoveryTime = () => recoveryTime += 0.5
+let decreaseRecoveryTime = () => recoveryTime -= 0.5
+let increaseRuns = () => RUNS += 1
+let decreaseRuns = () => RUNS -= 1
 
-    $: POMODORO_S = minutesToSeconds(time);
-    $: SHORT_BREAK_S = minutesToSeconds(recoveryTime);
-    $: RUNS = 1;
-    $: console.log(`RUNS ${RUNS}`);
-    
-    const LONG_BREAK_S = minutesToSeconds(5);
-    
-    let currentState = State.idle;
-    $: pomodoroTime = POMODORO_S;
-    $: shortBreakTime = SHORT_BREAK_S;
-    $: console.log(`pomodoroTime ${pomodoroTime}`);
-    let completedPomodoros = 0;
-    let interval;
+const minutesToSeconds = (minutes) => minutes * 60;
+const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
+const padWithZeroes = (number) => number.toString().padStart(2, '0');
+const State = {idle: 'idle', inProgress: 'in progress', resting: 'resting'};
+let currentState = State.idle;
 
-    function formatTime(timeInSeconds) { 
-      const minutes = secondsToMinutes(timeInSeconds);
-      const remainingSeconds = timeInSeconds % 60;
-      return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
-    }
+$: exercise_time = minutesToSeconds(time);
+$: break_time = minutesToSeconds(recoveryTime);
+$: RUNS = 1;
+$: pomodoroTime = exercise_time;
 
-    function startPomodoro() {       
-      setState(State.inProgress);
-      interval = setInterval(() => {
-        if (pomodoroTime === 4) {
+function formatTime(timeInSeconds) { 
+  const minutes = secondsToMinutes(timeInSeconds);
+  const remainingSeconds = timeInSeconds % 60;
+  return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
+}
+
+function startPomodoro() {       
+  setState(State.inProgress);
+  interval = setInterval(() => {
+    if (pomodoroTime === 4) {
           myAudio.play();
-        }
-        if (pomodoroTime === 0) {
-          completePomodoro();
-        }
-        pomodoroTime -= 1;
-      },1000);
     }
+    if (pomodoroTime === 0) {
+          completePomodoro();
+    }
+        pomodoroTime -= 1;
+  },1000);
+}
 
     function setState(newState){
       clearInterval(interval)
@@ -58,19 +54,18 @@ import { onMount } from 'svelte';
       if (completedPomodoros === RUNS) {
         
         completedPomodoros = 0;
-        pomodoroTime = POMODORO_S;
+        pomodoroTime = exercise_time;
         idle();
         
       } else {
         
-        rest(SHORT_BREAK_S);
+        rest(break_time);
       }
     }
 
     function rest(time){
       setState(State.resting);
       pomodoroTime = time;
-
       interval = setInterval(() => {
         if (pomodoroTime === 4) {
           myAudio.play();
@@ -87,18 +82,19 @@ import { onMount } from 'svelte';
     function cancelPomodoro() {      
       idle();
     }
-    
+
     function idle(){
       setState(State.idle);
-      pomodoroTime = POMODORO_S;
+      pomodoroTime = exercise_time;
     }
-    let increaseTime = () => time += 0.5    
-    let decreaseTime= () => time -= 0.5
-    let increaseRecoveryTime = () => recoveryTime += 0.5
-    let decreaseRecoveryTime = () => recoveryTime -= 0.5
-    let increaseRuns = () => RUNS += 1
-    let decreaseRuns = () => RUNS -= 1
-  </script>
+ 
+
+onMount(() => {
+  myAudio = document.createElement("audio");      
+  myAudio.src = "countdown.wav";      
+});
+
+</script>
   
   <style>
     time {
@@ -115,7 +111,19 @@ import { onMount } from 'svelte';
     }
     input {
       width: 5rem;
+      text-align:center;
     }  
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
   </style>
   
   <section>
@@ -133,15 +141,13 @@ import { onMount } from 'svelte';
       <button on:click="{decreaseRuns}" disabled={RUNS === 0}>➖</button>
       <input type=number bind:value={RUNS} min=1>   
       <button on:click="{increaseRuns}">➕</button>
-    </div>
-    <p>Active Time</p>
+    </div>    
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
       {formatTime(pomodoroTime)}
-    </time>
-    
+    </time>    
     <footer>
       <button class="primary" on:click={startPomodoro} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
-      <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress}>cancel</button>
+      <button on:click={cancelPomodoro} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>
     </footer>
   </section>
 
