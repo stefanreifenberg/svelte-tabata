@@ -26,6 +26,9 @@
       main {
         max-width: none;
       }
+      h1 {
+        font-size: 3em;
+      }  
     }
   </style>
   

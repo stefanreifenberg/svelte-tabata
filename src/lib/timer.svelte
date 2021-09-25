@@ -124,16 +124,19 @@ onMount(() => {
   
 <section>
     <div>
+      <p>Activity Time (Minutes)</p>
       <button on:click="{decreaseTime}" disabled={time === 0}>➖</button>
       <input type=number bind:value={time} min=0>
       <button on:click="{increaseTime}">➕</button>
     </div>
     <div>
+      <p>Resting Time (Minutes)</p>
       <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0}>➖</button>
       <input type=number bind:value={recoveryTime} min=0>
       <button on:click="{increaseRecoveryTime}">➕</button>
     </div>
     <div>
+      <p>No. of Reps</p>
       <button on:click="{decreaseRuns}" disabled={RUNS === 0}>➖</button>
       <input type=number bind:value={RUNS} min=1>   
       <button on:click="{increaseRuns}">➕</button>
