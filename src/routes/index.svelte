@@ -1,6 +1,6 @@
 <script>
     import Timer from '$lib/timer.svelte'
-    let title = "tabata timer";
+    let title = "interval timer";
 </script>
 
 <main>
