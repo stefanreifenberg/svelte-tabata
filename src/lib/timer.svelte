@@ -35,7 +35,6 @@ function formatTime(timeInSeconds) {
 
 function starttabata() {
   if (currentState !== State.resting) {
-    console.log("timer activated")
     countdown_total_time();
   }         
   setState(State.inProgress);  
@@ -75,7 +74,6 @@ function rest(time){
       myAudio.play();
     }
     if (tabataTime === 0) {
-      console.log("start new tabata")
       tabataTime = time;
         starttabata();
     }
@@ -144,19 +142,19 @@ onMount(() => {
     <div>
       <p>Activity Time (Minutes)</p>
       <button on:click="{decreaseTime}" disabled={time === 0 || currentState === State.inProgress}>➖</button>
-      <input type=number bind:value={time} min=0 disabled={currentState === State.inProgress}>
+      <input label="Activity Time" type=number bind:value={time} min=0 disabled={currentState === State.inProgress}>
       <button on:click="{increaseTime}" disabled={currentState === State.inProgress}>➕</button>
     </div>
     <div>
       <p>Resting Time (Minutes)</p>
       <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0 || currentState === State.inProgress}>➖</button>
-      <input type=number bind:value={recoveryTime} min=0 disabled={currentState === State.inProgress}>
+      <input label="Recovery Time" type=number bind:value={recoveryTime} min=0 disabled={currentState === State.inProgress}>
       <button on:click="{increaseRecoveryTime}" disabled={currentState === State.inProgress}>➕</button>
     </div>
     <div>
       <p>No. of Reps</p>
       <button on:click="{decreaseRuns}" disabled={RUNS === 0 || currentState === State.inProgress}>➖</button>
-      <input type=number bind:value={RUNS} min=1 disabled={currentState === State.inProgress}>   
+      <input label="Number of repetitions" type=number bind:value={RUNS} min=1 disabled={currentState === State.inProgress}>   
       <button on:click="{increaseRuns}" disabled={currentState === State.inProgress}>➕</button>
     </div>    
     <p>Total time: {formatTime(total_time)}</p>
