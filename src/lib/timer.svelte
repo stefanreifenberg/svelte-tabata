@@ -143,21 +143,21 @@ onMount(() => {
 <section>
     <div>
       <p>Activity Time (Minutes)</p>
-      <button on:click="{decreaseTime}" disabled={time === 0}>➖</button>
-      <input type=number bind:value={time} min=0>
-      <button on:click="{increaseTime}">➕</button>
+      <button on:click="{decreaseTime}" disabled={time === 0 || currentState === State.inProgress}>➖</button>
+      <input type=number bind:value={time} min=0 disabled={currentState === State.inProgress}>
+      <button on:click="{increaseTime}" disabled={currentState === State.inProgress}>➕</button>
     </div>
     <div>
       <p>Resting Time (Minutes)</p>
-      <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0}>➖</button>
-      <input type=number bind:value={recoveryTime} min=0>
-      <button on:click="{increaseRecoveryTime}">➕</button>
+      <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0 || currentState === State.inProgress}>➖</button>
+      <input type=number bind:value={recoveryTime} min=0 disabled={currentState === State.inProgress}>
+      <button on:click="{increaseRecoveryTime}" disabled={currentState === State.inProgress}>➕</button>
     </div>
     <div>
       <p>No. of Reps</p>
-      <button on:click="{decreaseRuns}" disabled={RUNS === 0}>➖</button>
-      <input type=number bind:value={RUNS} min=1>   
-      <button on:click="{increaseRuns}">➕</button>
+      <button on:click="{decreaseRuns}" disabled={RUNS === 0 || currentState === State.inProgress}>➖</button>
+      <input type=number bind:value={RUNS} min=1 disabled={currentState === State.inProgress}>   
+      <button on:click="{increaseRuns}" disabled={currentState === State.inProgress}>➕</button>
     </div>    
     <p>Total time: {formatTime(total_time)}</p>
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
