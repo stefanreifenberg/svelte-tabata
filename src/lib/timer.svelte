@@ -84,7 +84,7 @@ function rest(time){
   },1000);
 }
 function countdown_total_time(){
-  console.log("total_time", total_time);
+  
   countdown_interval = setInterval(() => {        
     total_time -= 1;
     if (total_time === 0) {
@@ -95,6 +95,8 @@ function countdown_total_time(){
 
 function canceltabata() {      
   idle();
+  clearInterval(countdown_interval);
+  total_time = exercise_time + break_time * RUNS;
 }
 
 function idle(){
