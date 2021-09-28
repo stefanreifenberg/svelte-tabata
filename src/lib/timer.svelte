@@ -7,6 +7,7 @@ let recoveryTime = 1;
 
 let completedtabatas = 0;
 let interval;
+let countdown_interval;
 let increaseTime = () => time += 0.5    
 let decreaseTime= () => time -= 0.5
 let increaseRecoveryTime = () => recoveryTime += 0.5
@@ -24,6 +25,7 @@ $: exercise_time = minutesToSeconds(time);
 $: break_time = minutesToSeconds(recoveryTime);
 $: RUNS = 1;
 $: tabataTime = exercise_time;
+$: total_time = exercise_time + break_time * RUNS;
 
 function formatTime(timeInSeconds) { 
   const minutes = secondsToMinutes(timeInSeconds);
@@ -31,8 +33,12 @@ function formatTime(timeInSeconds) {
   return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
 }
 
-function starttabata() {       
-  setState(State.inProgress);
+function starttabata() {
+  if (currentState !== State.resting) {
+    console.log("timer activated")
+    countdown_total_time();
+  }         
+  setState(State.inProgress);  
   interval = setInterval(() => {
     if (tabataTime === 4) {
           myAudio.play();
@@ -63,6 +69,7 @@ function completetabata(){
 function rest(time){
   setState(State.resting);
   tabataTime = time;
+  
   interval = setInterval(() => {
     if (tabataTime === 4) {
       myAudio.play();
@@ -73,7 +80,17 @@ function rest(time){
         starttabata();
     }
     tabataTime -= 1;
+    
   },1000);
+}
+function countdown_total_time(){
+  console.log("total_time", total_time);
+  countdown_interval = setInterval(() => {        
+    total_time -= 1;
+    if (total_time === 0) {
+      clearInterval(countdown_interval);
+    }  
+  },1000);  
 }
 
 function canceltabata() {      
@@ -140,6 +157,7 @@ onMount(() => {
       <input type=number bind:value={RUNS} min=1>   
       <button on:click="{increaseRuns}">➕</button>
     </div>    
+    <p>Total time: {formatTime(total_time)}</p>
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
       {formatTime(tabataTime)}
     </time>    
