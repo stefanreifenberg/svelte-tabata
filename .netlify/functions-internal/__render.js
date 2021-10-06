@@ -2426,7 +2426,7 @@ var user_hooks = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   [Symbol.toStringTag]: "Module"
 });
-var template = ({ head, body }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="/favicon.png" />\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		<link rel="manifest" crossorigin="use-credentials" href="manifest.json" />\n		' + head + '\n	</head>\n	<body>\n		<div id="svelte">' + body + "</div>\n	</body>\n</html>\n";
+var template = ({ head, body }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="/favicon.png" />\n		<title>Interval Timer</title>\n		<meta name="description" content="Svelte Interval Timer App">\n		<meta name="viewport" content="width=device-width, initial-scale=1" />\n		<link rel="manifest" crossorigin="use-credentials" href="manifest.json" />\n		' + head + '\n	</head>\n	<body>\n		<div id="svelte">' + body + "</div>\n	</body>\n</html>\n";
 var options = null;
 var default_settings = { paths: { "base": "", "assets": "" } };
 function init(settings = default_settings) {
@@ -2437,9 +2437,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: assets + "/_app/start-9297daf9.js",
+      file: assets + "/_app/start-7a931b05.js",
       css: [assets + "/_app/assets/start-61d1577b.css"],
-      js: [assets + "/_app/start-9297daf9.js", assets + "/_app/chunks/vendor-097cd5df.js"]
+      js: [assets + "/_app/start-7a931b05.js", assets + "/_app/chunks/vendor-398e3710.js"]
     },
     fetched: void 0,
     floc: false,
@@ -2468,7 +2468,7 @@ function init(settings = default_settings) {
 }
 var empty = () => ({});
 var manifest = {
-  assets: [{ "file": "countdown.wav", "size": 1147330, "type": "audio/wav" }, { "file": "favicon.png", "size": 1571, "type": "image/png" }, { "file": "logo_512.png", "size": 9541, "type": "image/png" }, { "file": "manifest.json", "size": 976, "type": "application/json" }, { "file": "robots.txt", "size": 67, "type": "text/plain" }],
+  assets: [{ "file": "countdown.wav", "size": 1147330, "type": "audio/wav" }, { "file": "favicon.png", "size": 1571, "type": "image/png" }, { "file": "logo_512.png", "size": 9541, "type": "image/png" }, { "file": "manifest.json", "size": 399, "type": "application/json" }, { "file": "robots.txt", "size": 67, "type": "text/plain" }, { "file": "timer_logo.png", "size": 135773, "type": "image/png" }],
   layout: "src/routes/__layout.svelte",
   error: ".svelte-kit/build/components/error.svelte",
   routes: [
@@ -2498,7 +2498,7 @@ var module_lookup = {
     return index;
   })
 };
-var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-6bd26434.js", "css": ["assets/pages/__layout.svelte-ed414775.css"], "js": ["pages/__layout.svelte-6bd26434.js", "chunks/vendor-097cd5df.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-c29cd0c7.js", "css": [], "js": ["error.svelte-c29cd0c7.js", "chunks/vendor-097cd5df.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-133fbca9.js", "css": ["assets/pages/index.svelte-74b1cee4.css"], "js": ["pages/index.svelte-133fbca9.js", "chunks/vendor-097cd5df.js"], "styles": [] } };
+var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-4e45d6ed.js", "css": ["assets/pages/__layout.svelte-ed414775.css"], "js": ["pages/__layout.svelte-4e45d6ed.js", "chunks/vendor-398e3710.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-284b5bcc.js", "css": [], "js": ["error.svelte-284b5bcc.js", "chunks/vendor-398e3710.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-deae6be9.js", "css": ["assets/pages/index.svelte-cc5e954c.css"], "js": ["pages/index.svelte-deae6be9.js", "chunks/vendor-398e3710.js"], "styles": [] } };
 async function load_component(file) {
   const { entry, css: css2, js, styles } = metadata_lookup[file];
   return {
@@ -2549,18 +2549,26 @@ var error = /* @__PURE__ */ Object.freeze({
   load
 });
 var css$1 = {
-  code: "time.svelte-4m1ex6{display:block;font-size:5em;font-weight:300;margin-bottom:0.2em}.active.svelte-4m1ex6{color:green}.resting.svelte-4m1ex6{color:orange}input.svelte-4m1ex6{width:5rem;text-align:center}input.svelte-4m1ex6::-webkit-outer-spin-button,input.svelte-4m1ex6::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number].svelte-4m1ex6{-moz-appearance:textfield}",
-  map: `{"version":3,"file":"timer.svelte","sources":["timer.svelte"],"sourcesContent":["<script>\\nimport { onMount } from 'svelte';\\n\\nlet myAudio;\\nlet time = 1;\\nlet recoveryTime = 1;\\n\\nlet completedtabatas = 0;\\nlet interval;\\nlet increaseTime = () => time += 0.5    \\nlet decreaseTime= () => time -= 0.5\\nlet increaseRecoveryTime = () => recoveryTime += 0.5\\nlet decreaseRecoveryTime = () => recoveryTime -= 0.5\\nlet increaseRuns = () => RUNS += 1\\nlet decreaseRuns = () => RUNS -= 1\\n\\nconst minutesToSeconds = (minutes) => minutes * 60;\\nconst secondsToMinutes = (seconds) => Math.floor(seconds / 60);\\nconst padWithZeroes = (number) => number.toString().padStart(2, '0');\\nconst State = {idle: 'idle', inProgress: 'in progress', resting: 'resting'};\\nlet currentState = State.idle;\\n\\n$: exercise_time = minutesToSeconds(time);\\n$: break_time = minutesToSeconds(recoveryTime);\\n$: RUNS = 1;\\n$: tabataTime = exercise_time;\\n\\nfunction formatTime(timeInSeconds) { \\n  const minutes = secondsToMinutes(timeInSeconds);\\n  const remainingSeconds = timeInSeconds % 60;\\n  return \`\${padWithZeroes(minutes)}:\${padWithZeroes(remainingSeconds)}\`;\\n}\\n\\nfunction starttabata() {       \\n  setState(State.inProgress);\\n  interval = setInterval(() => {\\n    if (tabataTime === 4) {\\n          myAudio.play();\\n    }\\n    if (tabataTime === 0) {\\n          completetabata();\\n    }\\n        tabataTime -= 1;\\n  },1000);\\n}\\n\\nfunction setState(newState){\\n  clearInterval(interval)\\n  currentState = newState;\\n}\\n\\nfunction completetabata(){\\n  completedtabatas++;\\n  if (completedtabatas === RUNS) {        \\n    completedtabatas = 0;\\n    tabataTime = exercise_time;\\n    idle();        \\n  } else {        \\n    rest(break_time);\\n  }\\n}\\n\\nfunction rest(time){\\n  setState(State.resting);\\n  tabataTime = time;\\n  interval = setInterval(() => {\\n    if (tabataTime === 4) {\\n      myAudio.play();\\n    }\\n    if (tabataTime === 0) {\\n      console.log(\\"start new tabata\\")\\n      tabataTime = time;\\n        starttabata();\\n    }\\n    tabataTime -= 1;\\n  },1000);\\n}\\n\\nfunction canceltabata() {      \\n  idle();\\n}\\n\\nfunction idle(){\\n  setState(State.idle);\\n  tabataTime = exercise_time;\\n}\\n\\nonMount(() => {\\n  myAudio = document.createElement(\\"audio\\");      \\n  myAudio.src = \\"countdown.wav\\";      \\n});\\n\\n<\/script>\\n  \\n<style>\\n    time {\\n      display: block;\\n      font-size: 5em;\\n      font-weight: 300;\\n      margin-bottom: 0.2em;\\n    }\\n    .active {\\n      color: green;\\n    }\\n    .resting {\\n      color: orange;\\n    }\\n    input {\\n      width: 5rem;\\n      text-align:center;\\n    }  \\n    /* Chrome, Safari, Edge, Opera */\\n    input::-webkit-outer-spin-button,\\n    input::-webkit-inner-spin-button {\\n      -webkit-appearance: none;\\n      margin: 0;\\n    }\\n\\n    /* Firefox */\\n    input[type=number] {\\n      -moz-appearance: textfield;\\n    }\\n</style>\\n  \\n<section>\\n    <div>\\n      <button on:click=\\"{decreaseTime}\\" disabled={time === 0}>\u2796</button>\\n      <input type=number bind:value={time} min=0>\\n      <button on:click=\\"{increaseTime}\\">\u2795</button>\\n    </div>\\n    <div>\\n      <button on:click=\\"{decreaseRecoveryTime}\\" disabled={recoveryTime === 0}>\u2796</button>\\n      <input type=number bind:value={recoveryTime} min=0>\\n      <button on:click=\\"{increaseRecoveryTime}\\">\u2795</button>\\n    </div>\\n    <div>\\n      <button on:click=\\"{decreaseRuns}\\" disabled={RUNS === 0}>\u2796</button>\\n      <input type=number bind:value={RUNS} min=1>   \\n      <button on:click=\\"{increaseRuns}\\">\u2795</button>\\n    </div>    \\n    <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      \\n      {formatTime(tabataTime)}\\n    </time>    \\n    <footer>\\n      <button class=\\"primary\\" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>\\n      <button on:click={canceltabata} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>\\n    </footer>\\n</section>"],"names":[],"mappings":"AA+FI,IAAI,cAAC,CAAC,AACJ,OAAO,CAAE,KAAK,CACd,SAAS,CAAE,GAAG,CACd,WAAW,CAAE,GAAG,CAChB,aAAa,CAAE,KAAK,AACtB,CAAC,AACD,OAAO,cAAC,CAAC,AACP,KAAK,CAAE,KAAK,AACd,CAAC,AACD,QAAQ,cAAC,CAAC,AACR,KAAK,CAAE,MAAM,AACf,CAAC,AACD,KAAK,cAAC,CAAC,AACL,KAAK,CAAE,IAAI,CACX,WAAW,MAAM,AACnB,CAAC,AAED,mBAAK,2BAA2B,CAChC,mBAAK,2BAA2B,AAAC,CAAC,AAChC,kBAAkB,CAAE,IAAI,CACxB,MAAM,CAAE,CAAC,AACX,CAAC,AAGD,KAAK,CAAC,IAAI,CAAC,MAAM,CAAC,cAAC,CAAC,AAClB,eAAe,CAAE,SAAS,AAC5B,CAAC"}`
+  code: "time.svelte-1e0ipm6{display:block;font-size:5em;font-weight:300;margin-bottom:0.2em}.active.svelte-1e0ipm6{color:green}.resting.svelte-1e0ipm6{color:orange}input.svelte-1e0ipm6{width:5rem;text-align:center}input.svelte-1e0ipm6::-webkit-outer-spin-button,input.svelte-1e0ipm6::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number].svelte-1e0ipm6{-moz-appearance:textfield}",
+  map: `{"version":3,"file":"timer.svelte","sources":["timer.svelte"],"sourcesContent":["<script>\\nimport { onMount } from 'svelte';\\n\\nlet myAudio;\\nlet time = 1;\\nlet recoveryTime = 1;\\n\\nlet completedtabatas = 0;\\nlet interval;\\nlet countdown_interval;\\nlet increaseTime = () => time += 0.5    \\nlet decreaseTime= () => time -= 0.5\\nlet increaseRecoveryTime = () => recoveryTime += 0.5\\nlet decreaseRecoveryTime = () => recoveryTime -= 0.5\\nlet increaseRuns = () => RUNS += 1\\nlet decreaseRuns = () => RUNS -= 1\\n\\nconst minutesToSeconds = (minutes) => minutes * 60;\\nconst secondsToMinutes = (seconds) => Math.floor(seconds / 60);\\nconst padWithZeroes = (number) => number.toString().padStart(2, '0');\\nconst State = {idle: 'idle', inProgress: 'in progress', resting: 'resting'};\\nlet currentState = State.idle;\\n\\n$: exercise_time = minutesToSeconds(time);\\n$: break_time = minutesToSeconds(recoveryTime);\\n$: RUNS = 1;\\n$: tabataTime = exercise_time;\\n$: total_time = exercise_time + break_time * RUNS;\\n\\nfunction formatTime(timeInSeconds) { \\n  const minutes = secondsToMinutes(timeInSeconds);\\n  const remainingSeconds = timeInSeconds % 60;\\n  return \`\${padWithZeroes(minutes)}:\${padWithZeroes(remainingSeconds)}\`;\\n}\\n\\nfunction starttabata() {\\n  if (currentState !== State.resting) {\\n    countdown_total_time();\\n  }         \\n  setState(State.inProgress);  \\n  interval = setInterval(() => {\\n    if (tabataTime === 4) {\\n          myAudio.play();\\n    }\\n    if (tabataTime === 0) {\\n          completetabata();\\n    }\\n        tabataTime -= 1;\\n  },1000);\\n}\\n\\nfunction setState(newState){\\n  clearInterval(interval)\\n  currentState = newState;\\n}\\n\\nfunction completetabata(){\\n  completedtabatas++;\\n  if (completedtabatas === RUNS) {        \\n    completedtabatas = 0;\\n    tabataTime = exercise_time;\\n    idle();        \\n  } else {        \\n    rest(break_time);\\n  }\\n}\\n\\nfunction rest(time){\\n  setState(State.resting);\\n  tabataTime = time;\\n  \\n  interval = setInterval(() => {\\n    if (tabataTime === 4) {\\n      myAudio.play();\\n    }\\n    if (tabataTime === 0) {\\n      tabataTime = time;\\n        starttabata();\\n    }\\n    tabataTime -= 1;\\n    \\n  },1000);\\n}\\nfunction countdown_total_time(){\\n  \\n  countdown_interval = setInterval(() => {        \\n    total_time -= 1;\\n    if (total_time === 0) {\\n      clearInterval(countdown_interval);\\n    }  \\n  },1000);  \\n}\\n\\nfunction canceltabata() {      \\n  idle();\\n  clearInterval(countdown_interval);\\n  total_time = exercise_time + break_time * RUNS;\\n}\\n\\nfunction idle(){\\n  setState(State.idle);\\n  tabataTime = exercise_time;\\n}\\n\\nonMount(() => {\\n  myAudio = document.createElement(\\"audio\\");      \\n  myAudio.src = \\"countdown.wav\\";      \\n});\\n\\n<\/script>\\n  \\n<style>\\n    time {\\n      display: block;\\n      font-size: 5em;\\n      font-weight: 300;\\n      margin-bottom: 0.2em;\\n    }\\n    .active {\\n      color: green;\\n    }\\n    .resting {\\n      color: orange;\\n    }\\n    input {\\n      width: 5rem;\\n      text-align:center;\\n    }  \\n    /* Chrome, Safari, Edge, Opera */\\n    input::-webkit-outer-spin-button,\\n    input::-webkit-inner-spin-button {\\n      -webkit-appearance: none;\\n      margin: 0;\\n    }\\n\\n    /* Firefox */\\n    input[type=number] {\\n      -moz-appearance: textfield;\\n    }\\n\\n</style>\\n<section>\\n    <div>\\n      <p>Activity Time (Minutes)</p>\\n      <button on:click=\\"{decreaseTime}\\" disabled={time === 0 || currentState === State.inProgress}>\u2796</button>\\n      <input label=\\"Activity Time\\" type=number bind:value={time} min=0 disabled={currentState === State.inProgress}>\\n      <button on:click=\\"{increaseTime}\\" disabled={currentState === State.inProgress}>\u2795</button>\\n    </div>\\n    <div>\\n      <p>Resting Time (Minutes)</p>\\n      <button on:click=\\"{decreaseRecoveryTime}\\" disabled={recoveryTime === 0 || currentState === State.inProgress}>\u2796</button>\\n      <input label=\\"Recovery Time\\" type=number bind:value={recoveryTime} min=0 disabled={currentState === State.inProgress}>\\n      <button on:click=\\"{increaseRecoveryTime}\\" disabled={currentState === State.inProgress}>\u2795</button>\\n    </div>\\n    <div>\\n      <p>No. of Reps</p>\\n      <button on:click=\\"{decreaseRuns}\\" disabled={RUNS === 0 || currentState === State.inProgress}>\u2796</button>\\n      <input label=\\"Number of repetitions\\" type=number bind:value={RUNS} min=1 disabled={currentState === State.inProgress}>   \\n      <button on:click=\\"{increaseRuns}\\" disabled={currentState === State.inProgress}>\u2795</button>\\n    </div>    \\n    <p>Total time: {formatTime(total_time)}</p>\\n    <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      \\n      {formatTime(tabataTime)}\\n    </time>    \\n    <footer>\\n      <button class=\\"primary\\" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>\\n      <button on:click={canceltabata} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>\\n    </footer>\\n</section>"],"names":[],"mappings":"AAgHI,IAAI,eAAC,CAAC,AACJ,OAAO,CAAE,KAAK,CACd,SAAS,CAAE,GAAG,CACd,WAAW,CAAE,GAAG,CAChB,aAAa,CAAE,KAAK,AACtB,CAAC,AACD,OAAO,eAAC,CAAC,AACP,KAAK,CAAE,KAAK,AACd,CAAC,AACD,QAAQ,eAAC,CAAC,AACR,KAAK,CAAE,MAAM,AACf,CAAC,AACD,KAAK,eAAC,CAAC,AACL,KAAK,CAAE,IAAI,CACX,WAAW,MAAM,AACnB,CAAC,AAED,oBAAK,2BAA2B,CAChC,oBAAK,2BAA2B,AAAC,CAAC,AAChC,kBAAkB,CAAE,IAAI,CACxB,MAAM,CAAE,CAAC,AACX,CAAC,AAGD,KAAK,CAAC,IAAI,CAAC,MAAM,CAAC,eAAC,CAAC,AAClB,eAAe,CAAE,SAAS,AAC5B,CAAC"}`
 };
 var Timer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let exercise_time;
+  let break_time;
   let RUNS;
   let tabataTime;
+  let total_time;
   let time = 1;
   let recoveryTime = 1;
   const minutesToSeconds = (minutes) => minutes * 60;
   const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
   const padWithZeroes = (number) => number.toString().padStart(2, "0");
+  const State = {
+    idle: "idle",
+    inProgress: "in progress",
+    resting: "resting"
+  };
+  let currentState = State.idle;
   function formatTime(timeInSeconds) {
     const minutes = secondsToMinutes(timeInSeconds);
     const remainingSeconds = timeInSeconds % 60;
@@ -2568,34 +2576,40 @@ var Timer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   }
   $$result.css.add(css$1);
   exercise_time = minutesToSeconds(time);
+  break_time = minutesToSeconds(recoveryTime);
   RUNS = 1;
   tabataTime = exercise_time;
-  return `<section><div><button ${""}>\u2796</button>
-      <input type="${"number"}" min="${"0"}" class="${"svelte-4m1ex6"}"${add_attribute("value", time, 0)}>
-      <button>\u2795</button></div>
-    <div><button ${""}>\u2796</button>
-      <input type="${"number"}" min="${"0"}" class="${"svelte-4m1ex6"}"${add_attribute("value", recoveryTime, 0)}>
-      <button>\u2795</button></div>
-    <div><button ${RUNS === 0 ? "disabled" : ""}>\u2796</button>
-      <input type="${"number"}" min="${"1"}" class="${"svelte-4m1ex6"}"${add_attribute("value", RUNS, 0)}>   
-      <button>\u2795</button></div>    
+  total_time = exercise_time + break_time * RUNS;
+  return `<section><div><p>Activity Time (Minutes)</p>
+      <button ${""}>\u2796</button>
+      <input label="${"Activity Time"}" type="${"number"}" min="${"0"}" ${""} class="${"svelte-1e0ipm6"}"${add_attribute("value", time, 0)}>
+      <button ${""}>\u2795</button></div>
+    <div><p>Resting Time (Minutes)</p>
+      <button ${""}>\u2796</button>
+      <input label="${"Recovery Time"}" type="${"number"}" min="${"0"}" ${""} class="${"svelte-1e0ipm6"}"${add_attribute("value", recoveryTime, 0)}>
+      <button ${""}>\u2795</button></div>
+    <div><p>No. of Reps</p>
+      <button ${RUNS === 0 || currentState === State.inProgress ? "disabled" : ""}>\u2796</button>
+      <input label="${"Number of repetitions"}" type="${"number"}" min="${"1"}" ${""} class="${"svelte-1e0ipm6"}"${add_attribute("value", RUNS, 0)}>   
+      <button ${""}>\u2795</button></div>    
+    <p>Total time: ${escape(formatTime(total_time))}</p>
     <time class="${[
-    "svelte-4m1ex6",
+    "svelte-1e0ipm6",
     " "
   ].join(" ").trim()}">${escape(formatTime(tabataTime))}</time>    
     <footer><button class="${"primary"}" ${RUNS === 0 ? "disabled" : ""}>start</button>
       <button ${"disabled"}>cancel</button></footer></section>`;
 });
 var css = {
-  code: "main.svelte-15e198d{text-align:center;padding:1em;max-width:240px;margin:0 auto}h1.svelte-15e198d{color:var(--accent);text-transform:uppercase;font-size:5em;margin:0;font-weight:100}@media(min-width: 640px){main.svelte-15e198d{max-width:none}}",
-  map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script>\\n    import Timer from '$lib/timer.svelte'\\n    let title = \\"tabata timer\\";\\n<\/script>\\n\\n<main>\\n    <h1>{title}</h1>\\n    <Timer/>    \\n</main>\\n\\n<style>\\n    main {\\n      text-align: center;\\n      padding: 1em;\\n      max-width: 240px;\\n      margin: 0 auto;\\n    }\\n    h1 {\\n      color: var(--accent);\\n      text-transform: uppercase;\\n      font-size: 5em;\\n      margin: 0;\\n      font-weight: 100;\\n    }\\n    @media (min-width: 640px) {\\n      main {\\n        max-width: none;\\n      }\\n    }\\n  </style>\\n  "],"names":[],"mappings":"AAWI,IAAI,eAAC,CAAC,AACJ,UAAU,CAAE,MAAM,CAClB,OAAO,CAAE,GAAG,CACZ,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AAChB,CAAC,AACD,EAAE,eAAC,CAAC,AACF,KAAK,CAAE,IAAI,QAAQ,CAAC,CACpB,cAAc,CAAE,SAAS,CACzB,SAAS,CAAE,GAAG,CACd,MAAM,CAAE,CAAC,CACT,WAAW,CAAE,GAAG,AAClB,CAAC,AACD,MAAM,AAAC,YAAY,KAAK,CAAC,AAAC,CAAC,AACzB,IAAI,eAAC,CAAC,AACJ,SAAS,CAAE,IAAI,AACjB,CAAC,AACH,CAAC"}`
+  code: "main.svelte-1d05gyt{text-align:center;padding:1em;max-width:240px;margin:0 auto}h1.svelte-1d05gyt{color:var(--accent);text-transform:uppercase;font-size:4em;margin:0;font-weight:100}.coffee.svelte-1d05gyt{margin-top:29px;padding:19px}@media(max-width: 640px){h1.svelte-1d05gyt{font-size:3em}}",
+  map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script>\\n    import Timer from '$lib/timer.svelte'\\n    \\n<\/script>\\n\\n<main>\\n    <h1>interval timer</h1>\\n    <Timer/>    \\n</main>\\n<div class=\\"coffee\\">\\n  <script data-name=\\"BMC-Widget\\"\\n   data-cfasync=\\"false\\"\\n    src=\\"https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js\\"\\n    data-id=\\"reifenberg\\" data-description=\\"Support me on Buy me a coffee!\\"\\n    data-message=\\"\\" data-color=\\"#FFDD00\\" data-position=\\"Right\\" data-x_margin=\\"18\\" data-y_margin=\\"18\\">\\n  <\/script>\\n</div>\\n\\n<style>\\n    main {\\n      text-align: center;\\n      padding: 1em;\\n      max-width: 240px;\\n      margin: 0 auto;\\n    }\\n    h1 {\\n      color: var(--accent);\\n      text-transform: uppercase;\\n      font-size: 4em;\\n      margin: 0;\\n      font-weight: 100;\\n    }\\n    .coffee {\\n      margin-top: 29px;\\n      padding: 19px;\\n    }\\n    \\n    @media (max-width: 640px) {\\n      \\n      h1 {\\n        font-size: 3em;        \\n      }  \\n    }\\n  </style>\\n  "],"names":[],"mappings":"AAmBI,IAAI,eAAC,CAAC,AACJ,UAAU,CAAE,MAAM,CAClB,OAAO,CAAE,GAAG,CACZ,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AAChB,CAAC,AACD,EAAE,eAAC,CAAC,AACF,KAAK,CAAE,IAAI,QAAQ,CAAC,CACpB,cAAc,CAAE,SAAS,CACzB,SAAS,CAAE,GAAG,CACd,MAAM,CAAE,CAAC,CACT,WAAW,CAAE,GAAG,AAClB,CAAC,AACD,OAAO,eAAC,CAAC,AACP,UAAU,CAAE,IAAI,CAChB,OAAO,CAAE,IAAI,AACf,CAAC,AAED,MAAM,AAAC,YAAY,KAAK,CAAC,AAAC,CAAC,AAEzB,EAAE,eAAC,CAAC,AACF,SAAS,CAAE,GAAG,AAChB,CAAC,AACH,CAAC"}`
 };
-var title = "tabata timer";
 var Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<main class="${"svelte-15e198d"}"><h1 class="${"svelte-15e198d"}">${escape(title)}</h1>
-    ${validate_component(Timer, "Timer").$$render($$result, {}, {}, {})}    
-</main>`;
+  return `<main class="${"svelte-1d05gyt"}"><h1 class="${"svelte-1d05gyt"}">interval timer</h1>
+    ${validate_component(Timer, "Timer").$$render($$result, {}, {}, {})}</main>
+<div class="${"coffee svelte-1d05gyt"}"><script data-name="${"BMC-Widget"}" data-cfasync="${"false"}" src="${"https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"}" data-id="${"reifenberg"}" data-description="${"Support me on Buy me a coffee!"}" data-message="${""}" data-color="${"#FFDD00"}" data-position="${"Right"}" data-x_margin="${"18"}" data-y_margin="${"18"}"><\/script>
+</div>`;
 });
 var index = /* @__PURE__ */ Object.freeze({
   __proto__: null,
