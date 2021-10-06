@@ -1,12 +1,20 @@
 <script>
     import Timer from '$lib/timer.svelte'
-    let title = "interval timer";
+    
 </script>
 
 <main>
-    <h1>{title}</h1>
+    <h1>interval timer</h1>
     <Timer/>    
 </main>
+<div class="coffee">
+  <script data-name="BMC-Widget"
+   data-cfasync="false"
+    src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+    data-id="reifenberg" data-description="Support me on Buy me a coffee!"
+    data-message="" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18">
+  </script>
+</div>
 
 <style>
     main {
@@ -22,12 +30,15 @@
       margin: 0;
       font-weight: 100;
     }
-    @media (min-width: 640px) {
-      main {
-        max-width: none;
-      }
+    .coffee {
+      margin-top: 29px;
+      padding: 19px;
+    }
+    
+    @media (max-width: 640px) {
+      
       h1 {
-        font-size: 3em;
+        font-size: 3em;        
       }  
     }
   </style>

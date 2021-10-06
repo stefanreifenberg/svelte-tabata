@@ -137,6 +137,7 @@ onMount(() => {
     input[type=number] {
       -moz-appearance: textfield;
     }
+
 </style>
 <section>
     <div>
@@ -165,7 +166,4 @@ onMount(() => {
       <button class="primary" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
       <button on:click={canceltabata} disabled={currentState !== State.inProgress && currentState !== State.resting}>cancel</button>
     </footer>
-    <div>
-      <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="reifenberg" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-    </div>
 </section>

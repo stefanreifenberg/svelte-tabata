@@ -1,5 +1,20 @@
 # Svelte interval timer
 
-Side project developed in [SvelteKit](https://kit.svelte.dev/). 
+Project developed in [SvelteKit](https://kit.svelte.dev/). 
 
-Deployed on netlify here [intervall.app](intervall.app).
+App can be found here [intervall.app](intervall.app).
+
+Clone this repo
+
+````
+git clone https://github.com/stefanreifenberg/svelte-tabata.git
+````
+Install dependecies:
+````
+npm install
+````
+Start the App
+````
+npm run dev
+````
+
