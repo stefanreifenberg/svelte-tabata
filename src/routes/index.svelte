@@ -26,7 +26,7 @@
     h1 {
       color: var(--accent);
       text-transform: uppercase;
-      font-size: 5em;
+      font-size: 4em;
       margin: 0;
       font-weight: 100;
     }
