@@ -25,7 +25,7 @@ $: exercise_time = minutesToSeconds(time);
 $: break_time = minutesToSeconds(recoveryTime);
 $: RUNS = 1;
 $: tabataTime = exercise_time;
-$: total_time = exercise_time + break_time * RUNS;
+$: total_time = (exercise_time + break_time) * RUNS - break_time;
 
 function formatTime(timeInSeconds) { 
   const minutes = secondsToMinutes(timeInSeconds);
@@ -65,16 +65,16 @@ function completetabata(){
   }
 }
 
-function rest(time){
+function rest(rest_time){
   setState(State.resting);
-  tabataTime = time;
+  tabataTime = rest_time;
   
   interval = setInterval(() => {
     if (tabataTime === 4) {
       myAudio.play();
     }
     if (tabataTime === 0) {
-      tabataTime = time;
+      tabataTime = exercise_time;
         starttabata();
     }
     tabataTime -= 1;
