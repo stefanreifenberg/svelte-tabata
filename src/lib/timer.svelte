@@ -27,8 +27,6 @@ $: RUNS = 1;
 $: tabataTime = exercise_time;
 $: total_time = exercise_time + break_time * RUNS;
 
-$: console.log(total_time)
-
 function formatTime(timeInSeconds) { 
   const minutes = secondsToMinutes(timeInSeconds);
   const remainingSeconds = timeInSeconds % 60;
