@@ -1,37 +1,45 @@
 <script>
 import { onMount } from 'svelte';
+const minutesToSeconds = (minutes) => minutes * 60;
 
 let myAudio;
-let time = 1;
-let recoveryTime = 1;
-
+let time = minutesToSeconds(1);
+let recoveryTime = minutesToSeconds(1);
 let completedtabatas = 0;
 let interval;
 let countdown_interval;
-let increaseTime = () => time += 0.25    
-let decreaseTime= () => time -= 0.25
-let increaseRecoveryTime = () => recoveryTime += 0.25
-let decreaseRecoveryTime = () => recoveryTime -= 0.25
+let increaseTime = () => time += 5    
+let decreaseTime= () => time -= 5
+let increaseRecoveryTime = () => recoveryTime += 5
+let decreaseRecoveryTime = () => recoveryTime -= 5
 let increaseRuns = () => RUNS += 1
 let decreaseRuns = () => RUNS -= 1
 
-const minutesToSeconds = (minutes) => minutes * 60;
+
 const secondsToMinutes = (seconds) => Math.floor(seconds / 60);
 const padWithZeroes = (number) => number.toString().padStart(2, '0');
 const State = {idle: 'idle', inProgress: 'in progress', resting: 'resting'};
 let currentState = State.idle;
 
-$: exercise_time = minutesToSeconds(time);
-$: break_time = minutesToSeconds(recoveryTime);
+$: exercise_time = time;
+$: break_time = recoveryTime;
+$: console.log("break_time", break_time);
 $: RUNS = 1;
 $: tabataTime = exercise_time;
 $: total_time = (exercise_time + break_time) * RUNS - break_time;
+$: console.log(total_time);
 
-function formatTime(timeInSeconds) { 
-  const minutes = secondsToMinutes(timeInSeconds);
-  const remainingSeconds = timeInSeconds % 60;
-  return `${padWithZeroes(minutes)}:${padWithZeroes(remainingSeconds)}`;
+
+
+function secondsToTime(e){
+    var h = Math.floor(e / 3600).toString().padStart(2,'0'),
+        m = Math.floor(e % 3600 / 60).toString().padStart(2,'0'),
+        s = Math.floor(e % 60).toString().padStart(2,'0');
+    
+    return m + ':' + s;
+    //return `${h}:${m}:${s}`;
 }
+
 
 function starttabata() {
   if (currentState !== State.resting) {
@@ -141,13 +149,13 @@ onMount(() => {
 </style>
 <section>
     <div>
-      <p>Activity Time (Minutes)</p>
+      <p>Activity Time (Seconds)</p>
       <button on:click="{decreaseTime}" disabled={time === 0 || currentState === State.inProgress}>➖</button>
       <input label="Activity Time" type=number bind:value={time} min=0 disabled={currentState === State.inProgress}>
       <button on:click="{increaseTime}" disabled={currentState === State.inProgress}>➕</button>
     </div>
     <div>
-      <p>Resting Time (Minutes)</p>
+      <p>Resting Time (Seconds)</p>
       <button on:click="{decreaseRecoveryTime}" disabled={recoveryTime === 0 || currentState === State.inProgress}>➖</button>
       <input label="Recovery Time" type=number bind:value={recoveryTime} min=0 disabled={currentState === State.inProgress}>
       <button on:click="{increaseRecoveryTime}" disabled={currentState === State.inProgress}>➕</button>
@@ -158,7 +166,7 @@ onMount(() => {
       <input label="Number of repetitions" type=number bind:value={RUNS} min=1 disabled={currentState === State.inProgress}>   
       <button on:click="{increaseRuns}" disabled={currentState === State.inProgress}>➕</button>
     </div>    
-    <p>Total time: {formatTime(total_time)}</p>
+    <p>Total time: {secondsToTime(total_time)} minutes</p>
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
       {formatTime(tabataTime)}
     </time>    
