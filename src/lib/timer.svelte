@@ -23,11 +23,10 @@ let currentState = State.idle;
 
 $: exercise_time = time;
 $: break_time = recoveryTime;
-$: console.log("break_time", break_time);
+
 $: RUNS = 1;
 $: tabataTime = exercise_time;
 $: total_time = (exercise_time + break_time) * RUNS - break_time;
-$: console.log(total_time);
 
 
 
@@ -168,7 +167,7 @@ onMount(() => {
     </div>    
     <p>Total time: {secondsToTime(total_time)} minutes</p>
     <time class:active={currentState === State.inProgress} class:resting={currentState === State.resting}>      
-      {formatTime(tabataTime)}
+      {secondsToTime(tabataTime)}
     </time>    
     <footer>
       <button class="primary" on:click={starttabata} disabled={currentState !== State.idle || time === 0 || recoveryTime === 0 || RUNS === 0}>start</button>
