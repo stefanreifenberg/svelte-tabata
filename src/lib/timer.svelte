@@ -8,10 +8,10 @@ let recoveryTime = 1;
 let completedtabatas = 0;
 let interval;
 let countdown_interval;
-let increaseTime = () => time += 0.5    
-let decreaseTime= () => time -= 0.5
-let increaseRecoveryTime = () => recoveryTime += 0.5
-let decreaseRecoveryTime = () => recoveryTime -= 0.5
+let increaseTime = () => time += 0.25    
+let decreaseTime= () => time -= 0.25
+let increaseRecoveryTime = () => recoveryTime += 0.25
+let decreaseRecoveryTime = () => recoveryTime -= 0.25
 let increaseRuns = () => RUNS += 1
 let decreaseRuns = () => RUNS -= 1
 
@@ -26,6 +26,8 @@ $: break_time = minutesToSeconds(recoveryTime);
 $: RUNS = 1;
 $: tabataTime = exercise_time;
 $: total_time = exercise_time + break_time * RUNS;
+
+$: console.log(total_time)
 
 function formatTime(timeInSeconds) { 
   const minutes = secondsToMinutes(timeInSeconds);
