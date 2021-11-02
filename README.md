@@ -2,7 +2,7 @@
 
 Project developed in [SvelteKit](https://kit.svelte.dev/). 
 
-App can be found here [intervall.app](intervall.app).
+App can be found here [intervall.app](https://intervall.app).
 
 Clone this repo
 
